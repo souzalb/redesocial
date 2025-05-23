@@ -9,9 +9,23 @@
     </title>
 </head>
 {% block body %}
-<body>
-    <h1>"Rede Social - Pagina Inicial"</h1>
-</body>
+    <body>
+        <h1>"Rede Social - Pagina Inicial"</h1>
+
+        {% block form %}
+        <form method="POST">
+        {{ form.csrf_toker }}
+            {{ form.email.label() }}
+            {{ form.email() }}
+
+            {{ form.password.label() }}
+            {{ form.password() }}
+
+            {{ form.submit() }}
+        </form>
+        {% endblock %}
+
+    </body>
 {% endblock %}
 </html>
 
