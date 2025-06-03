@@ -14,7 +14,7 @@
 
         {% block form %}
         <form method="POST">
-        {{ form.csrf_toker }}
+        {{ form.csrf_token }}
             {{ form.email.label() }}
             {{ form.email() }}
 
