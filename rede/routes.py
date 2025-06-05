@@ -55,7 +55,10 @@ def perfil(user_id):
         user = User.query.get(int(user_id))
         return render_template("perfil.html", usuario=user, form=None)
 
-
-
+@app.route("/feed")
+@login_required
+def feed():
+    photos = Photo.query.order_by(Photo.upload_date.desc()).all()
+    return render_template("feed.html", photos=photos)
 
 

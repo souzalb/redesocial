@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    {% include "navbar.html" %}
     <body>
         <h1>Perfil do usuário: {{ usuario.username }}</h1>
 
@@ -17,12 +18,11 @@
             </form>
         {% endif %}
 
-        <a href="{{ url_for('logout') }}">Sair</a>
-        <br><br>
-
         {% for photo in usuario.photos %}
             <img alt="{{ '{}'.format(photo.file_name) }}" src="{{ url_for('static', filename='posts_photos/{}'.format(photo.file_name)) }}">
         {% endfor %}
+
+        {# Para ordenar as fotos do usuário no perfil temos que ordenar no arquivo de rotas como no feed.#}
     </body>
 {% endblock %}
 
