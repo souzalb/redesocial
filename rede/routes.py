@@ -2,7 +2,9 @@ from flask import render_template, url_for, redirect
 from rede import app, database, bcrypt
 from rede.models import User, Photo
 from flask_login import login_required, login_user, logout_user, current_user
-from rede.forms import LoginForm, RegisterForm
+from rede.forms import LoginForm, RegisterForm, PhotoForm
+import os
+from werkzeug.utils import secure_filename
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -32,15 +34,26 @@ def criarconta():
         return redirect(url_for("perfil", user_id=user.id))
     return render_template("criarconta.html", form=registerform)
 
-@app.route("/perfil/<user_id>")
+@app.route("/perfil/<user_id>", methods=["GET", "POST"])
 @login_required
 def perfil(user_id):
     if int(user_id) == int(current_user.id):
         #o usuário visualiza o próprio perfil
-        return render_template("perfil.html", usuario=current_user)
+        photo_form = PhotoForm()
+        if photo_form.validate_on_submit():
+            file = photo_form.photo.data
+            secure_name = secure_filename(file.filename)
+            #salva o arquivo na pasta posts_photos
+            path = os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config["UPLOAD_FOLDER"], secure_name)
+            file.save(path)
+            #registrar o arquivo no banco de dados
+            photo = Photo(file_name=secure_name, user_id=current_user.id)
+            database.session.add(photo)
+            database.session.commit()
+        return render_template("perfil.html", usuario=current_user, form=photo_form)
     else:
         user = User.query.get(int(user_id))
-        return render_template("perfil.html", usuario=user)
+        return render_template("perfil.html", usuario=user, form=None)
 
 
 

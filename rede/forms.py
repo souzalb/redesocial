@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from flask_wtf.file import FileRequired
+from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from rede.models import User
 
@@ -21,3 +22,6 @@ class RegisterForm(FlaskForm):
             return ValidationError("E-mail já cadastrado. Por favor, use outro e-mail ou faça login para continuar.")
         return None
 
+class PhotoForm(FlaskForm):
+    photo = FileField('Photo', validators=[DataRequired()])
+    submit = SubmitField('Enviar')
