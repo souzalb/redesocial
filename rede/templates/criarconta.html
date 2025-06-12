@@ -4,23 +4,36 @@
     Rede Social - Criar conta
 {% endblock %}
 
-{% block form %}
-    <form method="POST">
-    {{ form.csrf_token }}
-        {{ form.email.label() }}
-        {{ form.email() }}
+ {% block form %}
+        <form method="POST" class="popup">
+            {{ form.csrf_token }}
+            <img src="{{ url_for('static', filename='site_photos/logo.png') }}" class="logo-rede" alt="Rede Social" />
 
-        {{ form.username.label() }}
-        {{ form.username() }}
+          <h2>Cadastro de Novo Usuário</h2>
 
-        {{ form.password.label() }}
-        {{ form.password() }}
+          <div class="div-input">
+            {{ form.email.label(class="label") }}
+            {{ form.email(class="input") }}
+          </div>
 
-        {{ form.confirm_password.label() }}
-        {{ form.confirm_password() }}
+          <div class="div-input">
+            {{ form.username.label(class="label") }}
+            {{ form.username(class="input") }}
+          </div>
 
-        {{ form.submit() }}
-    </form>
-    <a href="{{ url_for("homepage") }}">Tem uma conta? Faça login</a>
-{% endblock %}
+            <div class="div-input">
+            {{ form.password.label(class="label") }}
+            {{ form.password(class="input") }}
+          </div>
 
+            <div class="div-input">
+            {{ form.confirm_password.label(class="label") }}
+            {{ form.confirm_password(class="input") }}
+          </div>
+
+          <div class="div-botao">
+             {{ form.submit(class="botao-login") }}
+              <a href="{{ url_for("homepage") }}" class="link-criarconta">Tem uma conta? Faça login</a>
+          </div>
+        </form>
+ {% endblock %}

@@ -1,7 +1,10 @@
-<nav>
-    <a href="{{ url_for('feed') }}">Feed</a>
-    <a href="{{ url_for('perfil', user_id=current_user.id) }}">Perfil</a>
-    <a href="{{ url_for('logout') }}">Sair</a>
-</nav>
+ <nav>
+     <a href="{{ url_for('feed') }}" class="logo-pinterest" style="text-decoration: none;">
+         <img src="{{ url_for('static', filename='site_photos/logo.png') }}" class="logo-rede" alt="Rede Social Logo" /><h1>Rede Social</h1>
+     </a>
 
-
+     <div class="restante-nav">
+         <p class="botao-perfil"><a href="{{ url_for('perfil', user_id=current_user.id) }}" class="link-nav">Perfil</a></p>
+         <a href="{{ url_for('logout') }}" class="link-nav">Sair</a>
+     </div>
+ </nav>
