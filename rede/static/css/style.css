@@ -6,6 +6,7 @@
 body {
   font-family: 'Inter', serif;
   color: #333;
+  /*background: #0D1117;*/
 }
 
 nav {
@@ -70,6 +71,13 @@ img {
 
 .link-nav:hover {
   text-decoration: underline;
+}
+
+.link-nav-home{
+  font-size: 16px;
+  font-weight: 600;
+  color: #60A5FA;
+  text-decoration: none;
 }
 
 .restante-nav {
@@ -257,3 +265,4 @@ img {
   display: flex;
   column-gap: 20px;
 }
+

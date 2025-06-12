@@ -5,26 +5,51 @@
 {% endblock %}
 
 {% block body %}
-    {% include "navbar.html" %}
     <body>
-        <h1>Perfil do usuário: {{ usuario.username }}</h1>
+        {% include "navbar.html" %}
+            {% if form %}
+                <div class="container">
+                    <form method="POST" enctype="multipart/form-data" class="bloco-add-img">
+                        {{ form.csrf_token }}
+                       <h1>Perfil do usuário: {{ usuario.username }}</h1>
 
-        {% if form %}
-            <form method="POST" enctype="multipart/form-data">
-                {{ form.csrf_token }}
+                      <div class="bloco-arquivo">
+                        <label for="foto" class="botao-arquivo">
+                          Escolher arquivo
+                            {{ form.photo(class="input-arquivo", id="foto") }}
+                        </label>
+                        <span id="imagem-arquivo" class=""></span>
+                      </div>
+                        {{ form.submit(class="botao-login") }}
+                    </form>
+                </div>
+            {% else %}
+                <div class="bloco-add-img">
+                    <h1>Perfil do usuário: {{ usuario.username }}</h1>
+                </div>
+            {% endif %}
 
-                {{ form.photo() }}
-                {{ form.submit() }}
-            </form>
-        {% endif %}
+            <div class="conteudo">
+                {% for photo in usuario.photos %}
+                    <div class="bloco-imagem">
+                        <img alt="{{ '{}'.format(photo.file_name) }}" src="{{ url_for('static', filename='posts_photos/{}'.format(photo.file_name)) }}">
+                    </div>
+                {% endfor %}
+            </div>
 
-        {% for photo in usuario.photos %}
-            <img alt="{{ '{}'.format(photo.file_name) }}" src="{{ url_for('static', filename='posts_photos/{}'.format(photo.file_name)) }}">
-        {% endfor %}
+        <script>
+          let input = document.getElementById("foto");
+          let imagemArquivo = document.getElementById("imagem-arquivo");
 
-        {# Para ordenar as fotos do usuário no perfil temos que ordenar no arquivo de rotas como no feed.#}
+          input.addEventListener("change", () => {
+            let inputImagem = document.querySelector("input[type=file]").files[0];
+
+            imagemArquivo.classList.add("visivel");
+            imagemArquivo.innerText = inputImagem.name;
+          });
+        </script>
     </body>
 {% endblock %}
 
-
+ {# Para ordenar as fotos do usuário no perfil temos que ordenar no arquivo de rotas como no feed.#}
 

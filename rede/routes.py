@@ -13,7 +13,7 @@ def homepage():
         user = User.query.filter_by(email=loginform.email.data).first()
         if user and bcrypt.check_password_hash(user.password, loginform.password.data):
             login_user(user)
-            return redirect(url_for("perfil", user_id=user.id))
+            return redirect(url_for("feed", user_id=user.id))
     return render_template("homepage.html", form=loginform)
 
 @app.route("/logout")
