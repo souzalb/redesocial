@@ -266,3 +266,8 @@ img {
   column-gap: 20px;
 }
 
+.msg-error {
+  color: red;
+  font-weight: bold;
+  font-size: 15px;
+}

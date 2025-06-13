@@ -9,6 +9,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('Senha', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if not user:
+            raise ValidationError("Usuário não encontrado. Crie uma conta!")
+        return None
+
 class RegisterForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     username = StringField('Nome de usuário', validators=[DataRequired(), Length(2, 20)])
@@ -19,8 +25,10 @@ class RegisterForm(FlaskForm):
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            return ValidationError("E-mail já cadastrado. Por favor, use outro e-mail ou faça login para continuar.")
+            raise ValidationError("E-mail já cadastrado. Faça login para continuar.")
         return None
+
+    # TODO: Validate confirm password and duplicate username
 
 class PhotoForm(FlaskForm):
     photo = FileField('Photo', validators=[DataRequired()])
