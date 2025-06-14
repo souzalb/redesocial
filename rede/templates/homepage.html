@@ -15,7 +15,7 @@
   </head>
 
   {% block body %}
-  <body class="overflow-hidden">
+  <body class="overflow-hidden {{ 'dark-theme' if currentTheme == 'dark' else 'light-theme' }}">
 
   <img src="{{ url_for('static', filename='site_photos/fundo.jpg') }}" class="bg-imagem-pinterest" alt="Background Image" />
 

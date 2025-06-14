@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, session
 from rede import app, database, bcrypt
 from rede.models import User, Photo
 from flask_login import login_required, login_user, logout_user, current_user
@@ -60,5 +60,3 @@ def perfil(user_id):
 def feed():
     photos = Photo.query.order_by(Photo.upload_date.desc()).all()
     return render_template("feed.html", photos=photos)
-
-
