@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, session
+from flask import render_template, url_for, redirect
 from rede import app, database, bcrypt
 from rede.models import User, Photo
 from flask_login import login_required, login_user, logout_user, current_user
