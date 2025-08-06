@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import os
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://banco_redesocial_user:3SfcoCPEGbZENoxhk3t4ac19QDLfShhz@dpg-d28l2muuk2gs73ffhdo0-a.oregon-postgres.render.com/banco_redesocial"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SECRET_KEY'] = '3SfcoCPEGbZENoxhk3t4ac19QDLfShhz'
 app.config['UPLOAD_FOLDER'] = 'static/posts_photos'
 

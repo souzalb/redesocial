@@ -11,7 +11,7 @@ def homepage():
     loginform = LoginForm()
     if loginform.validate_on_submit():
         user = Users.query.filter_by(email=loginform.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, loginform.password.data):
+        if user and bcrypt.check_password_hash(user.password.encode("utf-8"), loginform.password.data):
             login_user(user)
             return redirect(url_for("feed", user_id=user.id))
     return render_template("homepage.html", form=loginform)
@@ -26,7 +26,7 @@ def logout():
 def criarconta():
     registerform = RegisterForm()
     if registerform.validate_on_submit():
-        password = bcrypt.generate_password_hash(registerform.password.data)
+        password = bcrypt.generate_password_hash(registerform.password.data).decode("utf-8")
         user = Users(username=registerform.username.data, password=password, email=registerform.email.data)
         database.session.add(user)
         database.session.commit()
