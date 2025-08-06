@@ -5,9 +5,9 @@ from zoneinfo import ZoneInfo
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Users.query.get(int(user_id))
 
-class User(database.Model, UserMixin):
+class Users(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(20), unique=True, nullable=False)
     email = database.Column(database.String(120), unique=True, nullable=False)
